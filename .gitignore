@@ -1,0 +1,6 @@
+/venv/
+*.xml
+*.iml
+.idea/*
+src/.DS_Store
+/src/Model/TrainedModel/model.pkl
