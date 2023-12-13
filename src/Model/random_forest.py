@@ -1,20 +1,18 @@
 import sys
-
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, accuracy_score
-
 from typing import Optional
 import pandas as pd
 import pickle
 import logging
-
+import numpy as np
+import os
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, accuracy_score
 from src.Model.abstract_model import AbstractModel
 
 
 class RandomForest(AbstractModel):
-    def __init__(self, data: pd.DataFrame, model_path: str = "./Model/TrainedModel", estimators: int = 100):
+    def __init__(self, data: pd.DataFrame, model_path: str = "./src/Model/TrainedModel", estimators: int = 100):
         self.data: pd.DataFrame = data
         self.training_data: Optional[tuple] = None
         self.validation_data: Optional[tuple] = None
@@ -63,6 +61,8 @@ class RandomForest(AbstractModel):
             Usually, we will hold an ML metadata store, and each model will be saved separately, and versioned.
             e.g. we will mot overwrite models, so we will be able to roll back to previous models if necessary
         """
+        if not os.path.exists(self.model_path):
+            os.makedirs(self.model_path)
         logging.info("Saving trained model")
         with open(f'{self.model_path}/model.pkl', 'wb') as file:
             pickle.dump(model, file)
