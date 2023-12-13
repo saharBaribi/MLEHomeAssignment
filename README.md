@@ -16,12 +16,12 @@ cd MLEHomeAssignment
 If you don't have Docker Desktop, you first need to download it. 
 Build the Docker image: 
 ```
-docker build -t Riskified-MLE .
+docker build -t riskified-mle .
 ```
 
 Run the Docker container: 
 ```
-docker run Riskified-MLE 
+docker run riskified-mle
 ```
 
 

@@ -23,17 +23,24 @@ class RandomForest(AbstractModel):
         self.model_path: str = model_path
 
     def run_classifier(self):
+        """
+        Full classifier flow. Is only needed when training and evaluating the model.
+        In cases where only prediction is needed we will only use predict.
+        """
         self.split_data()
         self.train_model()
         # Evaluate on validation set:
-        y_val_predict = self.predict(X=self.validation_data[0])
+        y_val_predict = self.predict(x=self.validation_data[0])
         self.evaluate(y_pred=y_val_predict, y_true=self.validation_data[1])
         # Evaluate on test set:
-        y_predict = self.predict(X=self.test_data[0])
-        self.evaluate(y_pred=y_predict,  y_true=self.test_data[1])
+        y_predict = self.predict(x=self.test_data[0])
+        self.evaluate(y_pred=y_predict, y_true=self.test_data[1])
         self.calculate_approval_rate(y_pred=y_predict)
 
-    def split_data(self) -> tuple():
+    def split_data(self):
+        """
+        Splitting the data into train, validation and test sets.
+        """
         logging.info("Splitting data to train, validation and test")
         X: pd.DataFrame = self.data.drop('label', axis=1)
         y: pd.Series = self.data['label']
@@ -51,17 +58,29 @@ class RandomForest(AbstractModel):
         self.save_model(rf_classifier)
 
     def save_model(self, model: RandomForestClassifier):
-        logging.info
+        """
+            The function saves the trained model to file.
+            Usually, we will hold an ML metadata store, and each model will be saved separately, and versioned.
+            e.g. we will mot overwrite models, so we will be able to roll back to previous models if necessary
+        """
+        logging.info("Saving trained model")
         with open(f'{self.model_path}/model.pkl', 'wb') as file:
             pickle.dump(model, file)
 
     def evaluate(self, y_pred: np.array, y_true: np.array):
+        """
+        Checking accuracy and classification report. Other metrics can be added.
+        We can also save the accuracy overtime to monitor the model performance and trigger retraining if needed.
+        """
         accuracy = accuracy_score(y_true, y_pred)
         class_report = classification_report(y_true, y_pred)
         print("Accuracy:", accuracy)
         print("Classification Report:\n", class_report)
 
     def load_model(self) -> RandomForestClassifier:
+        """
+        Loading the trained model object. Will happen each time we need to predict.
+        """
         try:
             with open(f'{self.model_path}/model.pkl', 'rb') as file:
                 loaded_model = pickle.load(file)
@@ -70,9 +89,9 @@ class RandomForest(AbstractModel):
             logging.error("There is no model is the provided path")
             sys.exit(1)
 
-    def predict(self, X: pd.DataFrame) -> np.array:
+    def predict(self, x: pd.DataFrame) -> np.array:
         model = self.load_model()
-        y_pred = model.predict(X)
+        y_pred = model.predict(x)
         return y_pred
 
     def calculate_approval_rate(self, y_pred: np.array):

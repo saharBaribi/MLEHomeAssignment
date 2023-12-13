@@ -4,3 +4,6 @@
 .idea/*
 src/.DS_Store
 /src/Model/TrainedModel/model.pkl
+*.pyc
+*.pyc
+src/Features/__pycache__/transaction_schema.cpython-311.pyc

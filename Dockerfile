@@ -6,4 +6,6 @@ USER root
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+CMD ["pytest"]
+
 CMD [ "python", "./main.py" ]
