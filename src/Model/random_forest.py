@@ -14,7 +14,7 @@ from src.Model.abstract_model import AbstractModel
 
 
 class RandomForest(AbstractModel):
-    def __init__(self, data: pd.DataFrame, model_path: str = "./Model/TrainedModel/", estimators: int = 100):
+    def __init__(self, data: pd.DataFrame, model_path: str = "./Model/TrainedModel", estimators: int = 100):
         self.data: pd.DataFrame = data
         self.training_data: Optional[tuple] = None
         self.validation_data: Optional[tuple] = None
