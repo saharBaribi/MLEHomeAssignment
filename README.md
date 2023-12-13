@@ -42,13 +42,11 @@ python3 main.py
 
 ## Testing
 There are two types of tests in the current application: 
-1. Unittesting - can be either run by pytest or just running the relevant function in the following path:
-   ```
-   python3 .src/Testing/test_model_pipeline.py
-   ```
+1. Unittesting - tests the model pipeline
+
 2. Data validation during runtime - will happen while you run the main function. 
 
-In general, you can use pytest to run all tests: 
+You can use pytest to run all tests: 
    ```
    python3 -m pytest
    ```
