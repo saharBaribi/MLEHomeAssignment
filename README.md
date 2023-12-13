@@ -29,13 +29,13 @@ docker run riskified-mle
 First you should install the required packages. Run the following line: 
 
 ``` 
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Then, run the application: 
 
 ```
-python main.py
+python3 main.py
 ```
 
 ## Testing
