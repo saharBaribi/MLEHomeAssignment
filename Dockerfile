@@ -6,6 +6,5 @@ USER root
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV PYTHONPATH "$PYTHONPATH:/app/src"
 
-CMD [ "python", "./src/main.py" ]
+CMD [ "python", "./main.py" ]
