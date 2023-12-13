@@ -26,6 +26,7 @@ docker run riskified-mle
 
 
 ### Run Locally 
+*** Please note, the code runs on Python 3.11 ***
 First you should install the required packages. Run the following line: 
 
 ``` 
